@@ -1,21 +1,45 @@
 import pytest
 import requests
 
+head = dict({"Content_type": "application/json"})
+
 
 class Client:
 
-    def get(self, url, header=""):
-        head = dict({"Content_type": header})
-        return requests.get(url, head)
+    def __init__(self, address='', head2=''):
+        self.address = address
+        if head2 == '':
+            self.head = head
+        else:
+            self.head = head2
 
-    def post(self, url, header):
-        head = dict({"Content_type": header})
-        return requests.post(url, headers=head)
+    def get(self):
+        url = self.address
+        return requests.get(url)
+
+    def post(self):
+        url = self.address
+        return requests.post(url, data=None, headers=self.head)
+
+
+def pytest_addoption(parser):
+    parser.addoption("--address", action="store", default='https://ya.ru')
 
 
 @pytest.fixture
-def client():
-    return Client()
+def client(request):
+    return Client(request.config.getoption("--address"))
+
+
+urls = ['https://dog.ceo/api/breeds/image/random', 'https://api.openbrewerydb.org/breweries',
+        'https://api.cdnjs.com/libraries']
+headers = [{"Content-type": "application/json"}]
+pairs = [(url, header) for url in urls for header in headers]
+
+
+@pytest.fixture(params=pairs)
+def client2(request):
+    return Client(request.param[0], request.param[1])
 
 
 @pytest.fixture(scope="module", autouse=True)
@@ -40,50 +64,50 @@ def start_class(request):
 # ####################### HOME WORK 3 #################################
 
 
-types = ["application/json", "text/html"]
-
-
-@pytest.fixture(scope="function")
-def test_dog_code():
-    print('\nCheck status code')
-    return "african"
-
-
-@pytest.fixture(scope="function")
-def test_dog_status():
-    print('\nCheck status request')
-    return "african"
-
-
-@pytest.fixture(scope="function")
-def test_dog_header():
-    print('\nChecke content')
-    return ["african", types]
-
-
-@pytest.fixture(scope="function")
-def test_brewery_status():
-    page = [1, 2, 3]
-    ppage = [10, 20, 30]
-    pairs = [(p, pp) for p in page for pp in ppage]
-    print('\ncheck status and type of id')
-    return pairs
-
-
-@pytest.fixture(scope="function")
-def test_brewery_state():
-    state = ["alabama", "california", "colorado", "arkansas"]
-    print('\ncheck content')
-    return state
-
-
-@pytest.fixture(scope="function")
-def test_header():
-    lib = ["10up-sanitize.css", "1000hz-bootstrap-validator", "6to5"]
-    hed = ["application/json"]
-    pairs = [(p, pp) for p in lib for pp in hed]
-    print('\nChecke content')
-    return pairs
+# types = ["application/json", "text/html"]
+#
+#
+# @pytest.fixture(scope="function")
+# def test_dog_code():
+#     print('\nCheck status code')
+#     return "african"
+#
+#
+# @pytest.fixture(scope="function")
+# def test_dog_status():
+#     print('\nCheck status request')
+#     return "african"
+#
+#
+# @pytest.fixture(scope="function")
+# def test_dog_header():
+#     print('\nChecke content')
+#     return ["african", types]
+#
+#
+# @pytest.fixture(scope="function")
+# def test_brewery_status():
+#     page = [1, 2, 3]
+#     ppage = [10, 20, 30]
+#     pairs = [(p, pp) for p in page for pp in ppage]
+#     print('\ncheck status and type of id')
+#     return pairs
+#
+#
+# @pytest.fixture(scope="function")
+# def test_brewery_state():
+#     state = ["alabama", "california", "colorado", "arkansas"]
+#     print('\ncheck content')
+#     return state
+#
+#
+# @pytest.fixture(scope="function")
+# def test_header():
+#     lib = ["10up-sanitize.css", "1000hz-bootstrap-validator", "6to5"]
+#     hed = ["application/json"]
+#     pairs = [(p, pp) for p in lib for pp in hed]
+#     print('\nChecke content')
+#     return pairs
 
 
 # ####################### HOME WORK 2 #################################
