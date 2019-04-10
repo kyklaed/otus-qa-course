@@ -13,17 +13,14 @@ class Client:
         else:
             self.head = head2
 
-    def get(self):
-        url = self.address
+    def get(self, endpoint=None):
+        url = "/".join([self.address, endpoint])
+        print(url)
         return requests.get(url)
-
-    def post(self):
-        url = self.address
-        return requests.post(url, data=None, headers=self.head)
 
 
 def pytest_addoption(parser):
-    parser.addoption("--address", action="store", default='https://ya.ru')
+    parser.addoption("--address", action="store", default=None)
 
 
 @pytest.fixture
