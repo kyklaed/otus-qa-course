@@ -19,13 +19,7 @@ class Client:
         return requests.get(url)
 
 
-def pytest_addoption(parser):
-    parser.addoption("--address", action="store", default=None)
 
-
-@pytest.fixture
-def client(request):
-    return Client(request.config.getoption("--address"))
 
 
 urls = ['https://dog.ceo/api/breeds/image/random', 'https://api.openbrewerydb.org/breweries',
@@ -58,53 +52,6 @@ def start_class(request):
 
     request.addfinalizer(fin)
 
-# ####################### HOME WORK 3 #################################
-
-
-# types = ["application/json", "text/html"]
-#
-#
-# @pytest.fixture(scope="function")
-# def test_dog_code():
-#     print('\nCheck status code')
-#     return "african"
-#
-#
-# @pytest.fixture(scope="function")
-# def test_dog_status():
-#     print('\nCheck status request')
-#     return "african"
-#
-#
-# @pytest.fixture(scope="function")
-# def test_dog_header():
-#     print('\nChecke content')
-#     return ["african", types]
-#
-#
-# @pytest.fixture(scope="function")
-# def test_brewery_status():
-#     page = [1, 2, 3]
-#     ppage = [10, 20, 30]
-#     pairs = [(p, pp) for p in page for pp in ppage]
-#     print('\ncheck status and type of id')
-#     return pairs
-#
-#
-# @pytest.fixture(scope="function")
-# def test_brewery_state():
-#     state = ["alabama", "california", "colorado", "arkansas"]
-#     print('\ncheck content')
-#     return state
-#
-#
-# @pytest.fixture(scope="function")
-# def test_header():
-#     lib = ["10up-sanitize.css", "1000hz-bootstrap-validator", "6to5"]
-#     hed = ["application/json"]
-#     pairs = [(p, pp) for p in lib for pp in hed]
-#     print('\nChecke content')
-#     return pairs
 
 
 # ####################### HOME WORK 2 #################################
