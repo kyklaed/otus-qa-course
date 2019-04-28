@@ -31,19 +31,42 @@ def logout(driver):
 
 @pytest.fixture(scope="function")
 def add_products(driver):
-    page.ProductsPage(driver).steps_to_create_product("nokia", "nokia", "device", "nokia n97")
+    obj = page.ProductsPage(driver).create_product("nokia", "nokia", "device", "nokia n97")
+    print(obj)
+    if obj:
+        return True
+    else:
+        return False
+
 
 @pytest.fixture(scope="function")
 def check_success(driver):
-    page.ProductsPage(driver).check_success()
+    obj = page.ProductsPage(driver).check_success()
+    print(obj)
+    if obj:
+        return True
+    else:
+        return False
+
 
 @pytest.fixture(scope="function")
 def edit_product(driver):
-    page.ProductsPage(driver).steps_to_edit_product("LOKILA")
+    obj = page.ProductsPage(driver).edit_product("LOKILA")
+    print(obj)
+    if obj:
+        return True
+    else:
+        return False
+
 
 @pytest.fixture(scope="function")
 def del_products(driver):
-    page.ProductsPage(driver).steps_to_del_product()
+    obj = page.ProductsPage(driver).del_product()
+    print(obj)
+    if obj:
+        return True
+    else:
+        return False
 
 
 @pytest.mark.usefixtures("login")
@@ -51,28 +74,28 @@ def del_products(driver):
 @pytest.mark.usefixtures("open_login_page")
 class TestAddProducts:
     @pytest.mark.usefixtures("add_products")
-    def test_add_products(self):
-        assert True
+    def test_add_products(self, add_products):
+        assert add_products
 
     @pytest.mark.usefixtures("check_success")
-    def test_check_success_add(self):
-        assert True
+    def test_check_success_add(self, check_success):
+        assert check_success
 
     @pytest.mark.usefixtures("edit_product")
-    def test_edit_product(self):
-        assert True
+    def test_edit_product(self, edit_product):
+        assert edit_product
 
     @pytest.mark.usefixtures("check_success")
-    def test_check_success_edit(self):
-        assert True
+    def test_check_success_edit(self, check_success):
+        assert check_success
 
     @pytest.mark.usefixtures("del_products")
-    def test_edit_product(self, driver):
+    def test_edit_product(self, driver, del_products):
         alert = driver.switch_to.alert
         alert.accept()
-        assert True
+        assert del_products
 
     @pytest.mark.usefixtures("check_success")
-    def test_check_success_del(self):
-        assert True
+    def test_check_success_del(self, check_success):
+        assert check_success
 

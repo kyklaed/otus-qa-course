@@ -76,6 +76,7 @@ class ProductsPage:
 
     def check_success(self):
         self.driver.find_element(*ProductsLocators.ALERT)
+        return True
 
     def edit_button(self):
         self.driver.find_element(*ProductsLocators.EDIT_BTN).click()
@@ -89,7 +90,7 @@ class ProductsPage:
     def del_all_products(self):
         self.driver.find_element(*ProductsLocators.DEL_ALL_PRODUCTS).click()
 
-    def steps_to_create_product(self, name, description, tag, model):
+    def create_product(self, name, description, tag, model):
         self.catalog()
         time.sleep(0.5)
         self.catalog_products()
@@ -100,17 +101,20 @@ class ProductsPage:
         self.choose_data_tree()
         self.set_model(model)
         self.save_products()
+        return True
 
-    def steps_to_edit_product(self, name):
+    def edit_product(self, name):
         self.edit_button()
         self.clear_name()
         self.set_name(name)
         self.save_products()
+        return True
 
-    def steps_to_del_product(self):
+    def del_product(self):
         self.select_all_checkbox()
         self.del_all_products()
         time.sleep(1)
+        return True
 
 
 
