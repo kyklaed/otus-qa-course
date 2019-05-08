@@ -77,25 +77,8 @@ class TestAddProducts:
     def test_add_products(self, add_products):
         assert add_products
 
-    @pytest.mark.usefixtures("check_success")
-    def test_check_success_add(self, check_success):
-        assert check_success
-
-    @pytest.mark.usefixtures("edit_product")
-    def test_edit_product(self, edit_product):
-        assert edit_product
-
-    @pytest.mark.usefixtures("check_success")
-    def test_check_success_edit(self, check_success):
-        assert check_success
-
-    @pytest.mark.usefixtures("del_products")
-    def test_del_product(self, driver, del_products):
-        alert = driver.switch_to.alert
-        alert.accept()
-        assert del_products
-
-    @pytest.mark.usefixtures("check_success")
-    def test_check_success_del(self, check_success):
-        assert check_success
-
+    # @pytest.mark.usefixtures("del_products")
+    # def test_del_product(self, driver, del_products):
+    #     alert = driver.switch_to.alert
+    #     alert.accept()
+    #     assert del_products

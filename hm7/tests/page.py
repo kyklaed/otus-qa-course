@@ -1,7 +1,10 @@
 from locators import LoginPageLocators, BaseLocators, ForgotPageLocators, ProductsLocators
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException, NoSuchElementException
+from selenium.common.exceptions import TimeoutException, NoSuchElementException, StaleElementReferenceException, ElementClickInterceptedException
+
+import time
+import pyautogui
 
 
 class LoginPage:
@@ -49,6 +52,7 @@ class ForgotPage:
 class ProductsPage:
     def __init__(self, driver):
         self.driver = driver
+        self.list_select_img = None
 
     def catalog(self):
         try:
@@ -136,6 +140,88 @@ class ProductsPage:
         except NoSuchElementException:
             return False
 
+    def choose_image_tree(self):
+        try:
+            self.driver.find_element(*ProductsLocators.CHOOSE_IMAGE_TREE).click()
+        except NoSuchElementException:
+            return False
+
+    def create_images_for_prod(self, count_img=2):
+        try:
+            for i in range(count_img):
+                self.driver.find_element(*ProductsLocators.ADD_NEW_IMAGE_FOR_PRODUCT).click()
+        except NoSuchElementException:
+            return False
+
+    def download_img(self):
+        time.sleep(1)
+        self.driver.find_element(*ProductsLocators.ADD_IMAGE).click()
+        time.sleep(1)
+        self.driver.find_element(*ProductsLocators.BTN_UPLOAD_IMAGE).click()
+        self.choose_image()
+        time.sleep(2)
+        self.click_alert()
+
+    def click_img_for_choose(self, num):
+        try:
+            self.list_select_img = self.driver.find_elements(*ProductsLocators.SELECT_IMG)
+            self.list_select_img[num].click()
+        except (StaleElementReferenceException, ElementClickInterceptedException) as err:
+            print(err)
+
+    def add_image(self):
+        try:
+            open_add_img_menu = self.driver.find_elements(*ProductsLocators.OPEN_ADD_IMAGE_MENU)
+            for num, element in enumerate(open_add_img_menu):
+                time.sleep(5)
+                print(num, element)
+                if num == 0:
+                    print(element)
+                    element.click()
+                    self.download_img()
+                    self.click_img_for_choose(num)
+                else:
+                    print(element)
+                    element.click()
+                    time.sleep(5)
+                    self.driver.find_element(*ProductsLocators.ADD_IMAGE).click()
+                    time.sleep(5)
+                    self.click_img_for_choose(num)
+            time.sleep(5)
+
+        except NoSuchElementException:
+            return False
+
+    def choose_image(self, img=2):
+        if self.driver.__dict__['capabilities']['browserName'] == 'chrome':
+            for i in range(6):
+                pyautogui.press("tab")
+            time.sleep(2)
+            pyautogui.press('enter')
+            time.sleep(2)
+            for i in range(3):
+                pyautogui.press("right")
+            pyautogui.press("down")
+
+            pyautogui.keyDown("shift")
+            for i in range(img):
+                pyautogui.press("down")
+            pyautogui.keyUp('shift')
+            time.sleep(2)
+            pyautogui.press('enter')
+
+        else:
+            pyautogui.keyDown("shift")
+            for i in range(img):
+                pyautogui.press("down")
+            pyautogui.keyUp('shift')
+            time.sleep(2)
+            pyautogui.press('enter')
+
+    def click_alert(self):
+        alert = self.driver.switch_to.alert
+        alert.accept()
+
     def create_product(self, name, description, tag, model):
         self.catalog()
         self.catalog_products()
@@ -145,6 +231,9 @@ class ProductsPage:
         self.set_tag(tag)
         self.choose_data_tree()
         self.set_model(model)
+        self.choose_image_tree()
+        self.create_images_for_prod()
+        self.add_image()
         self.save_products()
         return True
 
