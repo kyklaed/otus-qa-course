@@ -8,3 +8,6 @@ myvenv
 .pytest_cache
 geckodriver.log
 /screenshots
+*.html
+/asserts
+*.json
