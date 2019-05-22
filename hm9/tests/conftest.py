@@ -5,16 +5,18 @@ import logging
 import os
 import platform
 
+
 class Handler(AbstractEventListener):
     def __init__(self):
-        if not os.path.exists(os.path.abspath(os.curdir)+"/screenshots"):
+        self.log = ''.join((os.path.abspath(os.curdir), "/screenshots/log.txt"))
+        if not os.path.exists(self.log):
             os.makedirs(os.path.abspath(os.curdir))
 
-        open(os.path.abspath(os.curdir)+"/screenshots/log.txt", 'a', encoding='utf-8')
-        os.system(r' >{0}'.format(os.path.abspath(os.curdir)+"/screenshots/log.txt"))
+        open(self.log, 'a', encoding='utf-8')
+        os.system(r' >{0}'.format(self.log))
 
     def write_log(self, string):
-        file = open(os.path.abspath(os.curdir) + "/screenshots/log.txt", 'a', encoding='utf-8')
+        file = open(self.log, 'a', encoding='utf-8')
         file.write(string)
         file.close()
 
@@ -28,7 +30,7 @@ class Handler(AbstractEventListener):
         self.write_log("{0} {1} found\n".format(by, value))
 
     def on_exception(self, exception, driver):
-        driver.save_screenshot(os.path.abspath(os.curdir)+"/screenshots/exception.png")
+        driver.save_screenshot(''.join((os.path.abspath(os.curdir),"/screenshots/exception.png")))
         print(exception)
         self.write_log("{0}\n".format(exception))
 
