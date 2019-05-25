@@ -1,9 +1,14 @@
-Home Work !
 
-Pytest
-1) Запуск тестов выбрать url для теста:
-https://dog.ceo, https://api.openbrewerydb.org, https://api.cdnjs.com
-2) python kostil.py append https://dog.ceo
-3) Если хочется запустить все тесты:  python kostil.py append all
-                                           ]
-Pytest+Selenium
+HM - 11
+Для запуска скрипта необходимо передать при вызове класа
+1) путь до каталога куда будет сохранен отчет
+2) путь до каталога с логами
+3) имена лога/логов
+
+Для запуска можно передать только путь до каталога с логами или путь и имена необходмых логов!
+
+LogAnalysis('PycharmProjects/otus-qa-course/hm11/log/',
+            'PycharmProjects/otus-qa-course/hm11/log/',
+            'access.log',
+            'error.log')
+
