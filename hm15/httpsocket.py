@@ -1,11 +1,18 @@
 import socket
+import json
 
 
 class Http:
-    def __init__(self, host, port):
+    def __init__(self, host, port, head, *args):
         self.host = str(host)
         self.port = int(port)
-        self.str = ''.join(('GET / HTTP/1.1\nHost: ', str(host), '\r\n\r\n'))
+        self.head = head
+        self.request = ["{0} / HTTP/1.1\n".format(self.head),
+                        "Host: {0}\n".format(str(host))
+                        ]
+        for p in args:
+            self.request.append(p)
+        self.request.append('\r\n\r\n')
         self.sock = None
 
     def connect(self):
@@ -13,7 +20,7 @@ class Http:
         self.sock.connect((self.host, self.port))
 
     def send(self):
-        self.sock.send(self.str.encode())
+        self.sock.send(''.join(self.request).encode())
 
     def print(self):
         data = self.sock.recv(4096)
@@ -24,7 +31,8 @@ class Http:
         self.sock.close()
 
 
-http = Http('192.168.88.242', 80)
+http = Http('192.168.88.242', 80, 'GET',
+            "User-Agent: Mozilla/5.0")
 http.connect()
 http.send()
 http.print()
