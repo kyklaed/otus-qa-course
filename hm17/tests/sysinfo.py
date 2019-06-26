@@ -5,7 +5,8 @@ import argparse
 def inform(args):
     if args.i == 1:
         with subprocess.Popen(["ip", "link"], stdout=subprocess.PIPE) as sub:
-            for i in sub.stdout.read().decode('utf-8').split('\n'):
+            content = sub.stdout.read().decode('utf-8').split('\n')
+            for i in content:
                 print(i)
 
     elif args.r == 2:
