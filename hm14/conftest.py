@@ -4,7 +4,7 @@ import paramiko
 
 def pytest_addoption(parser):
     parser.addoption("--host", action="store", default="192.168.88.242")
-    parser.addoption("--port", action="store", default=2222)
+    parser.addoption("--port", action="store", default=int(2222))
     parser.addoption("--user", action="store", default="root")
     parser.addoption("--password", action="store", default="1234567890")
 

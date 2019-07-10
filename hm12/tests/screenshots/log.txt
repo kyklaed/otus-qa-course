@@ -1,0 +1,51 @@
+id input-username
+id input-username found
+id input-password
+id input-password found
+class name btn.btn-primary
+class name btn.btn-primary found
+css selector a[href="#collapse1"]
+css selector a[href="#collapse1"] found
+css selector ul.in li a[href*=product]
+Message: Unable to locate element: ul.in li a[href*=product]
+
+css selector ul.in li a[href*=product]
+css selector ul.in li a[href*=product] found
+css selector ul.in li a[href*=product]
+css selector ul.in li a[href*=product] found
+css selector div.pull-right a.btn-primary
+css selector div.pull-right a.btn-primary found
+css selector div.col-sm-10 input[id=input-name1]
+css selector div.col-sm-10 input[id=input-name1] found
+css selector div.note-editable
+css selector div.note-editable found
+css selector input[id=input-meta-title1]
+css selector input[id=input-meta-title1] found
+css selector ul.nav-tabs a[href="#tab-data"]
+css selector ul.nav-tabs a[href="#tab-data"] found
+css selector div.col-sm-10 input[id=input-model]
+css selector div.col-sm-10 input[id=input-model] found
+css selector ul.nav-tabs a[href="#tab-image"]
+css selector ul.nav-tabs a[href="#tab-image"] found
+css selector button[onclick="addImage();"]
+css selector button[onclick="addImage();"] found
+css selector button[onclick="addImage();"]
+css selector button[onclick="addImage();"] found
+css selector img[src*="no_image-100x100.png"]
+css selector img[src*="no_image-100x100.png"] found
+css selector button[id="button-image"]
+css selector button[id="button-image"] found
+css selector button[id="button-upload"]
+css selector button[id="button-upload"] found
+css selector a[href*=".jpg"]
+css selector a[href*=".jpg"] found
+css selector button[id="button-image"]
+css selector button[id="button-image"] found
+css selector a[href*=".jpg"]
+css selector a[href*=".jpg"] found
+css selector button[id="button-image"]
+css selector button[id="button-image"] found
+css selector a[href*=".jpg"]
+css selector a[href*=".jpg"] found
+css selector div.pull-right button.btn-primary
+css selector div.pull-right button.btn-primary found

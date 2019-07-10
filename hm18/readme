@@ -1,2 +1,2 @@
 sudo docker build --tag=otus --network=host .
-sudo docker run --network=host otus
+sudo docker run -i -t --network=host otus

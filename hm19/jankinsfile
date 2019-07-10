@@ -1,10 +1,39 @@
+##################### без прибиндинного волюма
 node {
     stage('Build Docker Container'){
         def testImage = docker.build("testimage", "/var/jenkins_home")
     }
     stage('Run Docker Container') {
-        //def out = docker.image("testimage").run()
-        sh "docker run --network=host testimage --host=${params.host} --port=${params.port} --user=${params.user} --password=${params.password}"
+        sh "docker run --network=host testimage --host=${params.host} --port=${params.port} --user=${params.user} --password=${params.password} > /var/jenkins_home/echo/log.txt"
+
+    }
+    stage("Save id conteiner") {
+        OUTPUT = sh(script: 'docker ps -aq -f ancestor=jenkins  -f status=running', returnStdout: true).trim()
+        echo OUTPUT
+    }
+    stage("Cp logs to host") {
+        echo OUTPUT
+        echo sh "ls /var/jenkins_home/echo"
+        sh "docker cp ${OUTPUT}:/var/jenkins_home/echo/log.txt /home/kyklaed/ddata"
+
+    }
+}
+
+
+########################## ВТОРАЯ ВЕРСИЯ - НУЖНО прибиндить волюм с хоста в контейнер
+node {
+    stage('Build Docker Container'){
+        def testImage = docker.build("testimage", "/var/jenkins_home")
+    }
+    stage('Run Docker Container') {
+        sh "docker run --network=host testimage --host=${params.host} --port=${params.port} --user=${params.user} --password=${params.password} > /var/jenkins_home/echo/log.txt"
+
+    }
+    stage("Cp logs to host") {
+        echo OUTPUT
+        OUTPUT2 = sh(script: "ls /var/jenkins_home/echo", returnStdout: true).trim()
+        echo OUTPUT2
+        sh "cp /var/jenkins_home/echo/log.txt /var/jenkins_home/echo2/"
 
     }
 }
