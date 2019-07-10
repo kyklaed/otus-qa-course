@@ -1,0 +1,11 @@
+FROM ubuntu:latest
+MAINTAINER vadim
+ENTRYPOINT ["pytest","-s", "-v", "otus-qa-course/hm14/testopencart.py"]
+RUN apt-get update && apt-get install -y\
+    git \
+    python3-pip \
+    && pip3 install pytest \
+    && pip3 install paramiko
+RUN git clone https://github.com/kyklaed/otus-qa-course.git
+RUN chmod +x /usr/local/bin/pytest
+CMD ["$host", "$port", "$user", "$password"]

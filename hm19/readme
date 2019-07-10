@@ -1,0 +1,9 @@
+1) sudo docker build --tag=jenkins --network=host .
+2) sudo chmod 0777 /var/run/docker.sock
+3) docker volume create jenkins_home  - не обязательно
+4) sudo docker run -u root --network=host -p 8080:8080 -p 50000:50000 -v /var/run/docker.sock:/var/run/docker.sock -v jenkins_home:/var/jenkins_home jenkins
+5) docker ps -a , берем id запущенного контейнера
+6) docker cp . {id_conteiner}:/var/jenkins_home
+
+docker stop $(docker ps -a -q)  - остановить все контейнеры
+docker rm $(docker ps -a -q)    - удалить все контейнеры

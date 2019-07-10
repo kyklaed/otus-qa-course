@@ -1,0 +1,10 @@
+node {
+    stage('Build Docker Container'){
+        def testImage = docker.build("testimage", "/var/jenkins_home")
+    }
+    stage('Run Docker Container') {
+        //def out = docker.image("testimage").run()
+        sh "docker run --network=host testimage --host=${params.host} --port=${params.port} --user=${params.user} --password=${params.password}"
+
+    }
+}
