@@ -45,10 +45,10 @@ def start_module(request):
 
 @pytest.fixture(scope="session")
 def start_class(request):
-    print('\nStart - test class fixture')
+    print('\nStart - tests class fixture')
 
     def fin():
-        print('\nStop - test class fixture')
+        print('\nStop - tests class fixture')
 
     request.addfinalizer(fin)
 

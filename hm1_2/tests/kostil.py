@@ -22,7 +22,7 @@ def start_test(args):
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description='Web test')
+    parser = argparse.ArgumentParser(description='Web tests')
     subparsers = parser.add_subparsers()
     parser_append = subparsers.add_parser('append', help='Append a url')
     parser_append.add_argument('address')
