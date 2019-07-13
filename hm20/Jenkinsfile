@@ -1,0 +1,6 @@
+
+node {
+    stage('Build and Run Docker Container'){
+        def testImage = sh "sh "docker run --rm --network=host eeacms/pep8 ${params.git}"
+    }
+}
