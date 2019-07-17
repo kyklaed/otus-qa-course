@@ -12,3 +12,4 @@ geckodriver.log
 /asserts
 *.json
 /log
+*.xml
