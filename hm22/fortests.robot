@@ -8,6 +8,14 @@ OpenBrowserMain
     [Arguments]  ${url}  ${browser}
     Open Browser   ${url}    ${browser}
 
+Login
+    [Arguments]   ${USER LOGIN}  ${USER PASSWORD}  ${LOGIN BTN}
+    InputUsername    ${USER LOGIN}
+    InputPassword    ${USER PASSWORD}
+    sleep  1s
+    SubmitBtn   ${LOGIN BTN}
+    sleep  1s
+
 InputUsername
     [Arguments]  ${user}
     Input Text   username    ${user}
@@ -46,3 +54,52 @@ FindSerchBtnInside
 
 FindSlider
     Get WebElement    css:div[class="swiper-wrapper"]
+
+MenuCatigories
+    sleep  1s
+    ${field} =   Get WebElement    css:a[href="#collapse1"]
+    Click Element    ${field}
+    sleep  1s
+    Click Element    css:ul.in li a[href*=catalog]
+
+ActionInCatalog
+    [Arguments]  ${name_catalog}  ${name_tag}
+    MenuCatigories
+    sleep  6s
+    Click Element    css:div.pull-right a.btn-primary
+    Input Text    css:input[id="input-name1"]    ${name_catalog}
+    Input Text    css:input[id="input-meta-title1"]    ${name_tag}
+    Click Button    css:button[type="submit"]
+    Get WebElement    xpath://td[contains(text(), "${name_catalog}")]
+
+DeleteCategories
+    [Arguments]  ${name_catalog}
+    Click Element    xpath://td[contains(text(), "${name_catalog}")]/parent::*[1]/td[1]/input
+    Click Button    css:button.btn-danger
+    Handle Alert
+
+MenuProduct
+    sleep  1s
+    ${field} =   Get WebElement    css:a[href="#collapse1"]
+    Click Element    ${field}
+    sleep  1s
+    Click Element    css:ul.in li a[href*=product]
+
+ActionInProduct
+    [Arguments]  ${name_product}  ${name_tag}  ${name_model}
+    MenuProduct
+    sleep  6s
+    Click Element    css:div.pull-right a.btn-primary
+    Input Text    css:input[id="input-name1"]    ${name_product}
+    Input Text    css:input[id="input-meta-title1"]    ${name_tag}
+    Click Element    css:a[href="#tab-data"]
+    Input Text    css:input[id="input-model"]    ${name_model}
+    Click Button    css:button[type="submit"]
+    Get WebElement    xpath://td[contains(text(), "${name_product}")]
+
+DeleteProduct
+    [Arguments]  ${name_product}
+    Click Element    xpath://td[contains(text(), "${name_product}")]/parent::*[1]/td[1]/input
+    Click Button    css:button.btn-danger
+    Handle Alert
+

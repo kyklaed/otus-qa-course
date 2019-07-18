@@ -6,8 +6,8 @@ Resource    fortests.robot
 Suite Teardown  Close All Browsers
 
 *** Variables ***
-${LOGIN URL}    http://192.168.45.113/admin/
-${MAIN URL}    http://192.168.45.113/
+${LOGIN URL}    http://192.168.88.242/admin/
+${MAIN URL}    http://192.168.88.242/
 ${BROWSER}    firefox
 ${USER LOGIN}    admin
 ${USER PASSWORD}    admin
@@ -46,9 +46,6 @@ SearchIsWork
 CheckCentralImgSlider
     OpenBrowserMain    ${MAIN URL}    ${BROWSER}
     FindSlider
-
-
-
 
 
 
